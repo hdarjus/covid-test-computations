@@ -173,21 +173,37 @@ pre code {
 
 <div id="TOC">
 <ul>
-<li><a href="#motivation">Motivation</a>
+<li><a href="#motivation"><span class="toc-section-number">1</span> Motivation</a>
 <ul>
-<li><a href="#summary">Summary</a></li>
-<li><a href="#important-notice">Important notice</a></li>
+<li><a href="#summary"><span class="toc-section-number">1.1</span> Summary</a></li>
+<li><a href="#important-notice"><span class="toc-section-number">1.2</span> Important notice</a></li>
 </ul></li>
-<li><a href="#terminology">Terminology</a></li>
-<li><a href="#input">Input</a></li>
-<li><a href="#computation">Computation</a></li>
-<li><a href="#discussion">Discussion</a></li>
-<li><a href="#what-about-repeated-tests">What about repeated tests??</a></li>
+<li><a href="#terminology"><span class="toc-section-number">2</span> Terminology</a></li>
+<li><a href="#input"><span class="toc-section-number">3</span> Input</a>
+<ul>
+<li><a href="#antigen"><span class="toc-section-number">3.1</span> Antigen</a></li>
+<li><a href="#pcr-naat"><span class="toc-section-number">3.2</span> PCR (NAAT)</a></li>
+</ul></li>
+<li><a href="#computation"><span class="toc-section-number">4</span> Computation</a>
+<ul>
+<li><a href="#antigen-1"><span class="toc-section-number">4.1</span> Antigen</a>
+<ul>
+<li><a href="#asymptomatic"><span class="toc-section-number">4.1.1</span> Asymptomatic</a></li>
+<li><a href="#symptomatic"><span class="toc-section-number">4.1.2</span> Symptomatic</a></li>
+</ul></li>
+<li><a href="#pcr"><span class="toc-section-number">4.2</span> PCR</a></li>
+</ul></li>
+<li><a href="#discussion"><span class="toc-section-number">5</span> Discussion</a></li>
+<li><a href="#what-about-repeated-tests"><span class="toc-section-number">6</span> What about repeated tests??</a>
+<ul>
+<li><a href="#asymptomatic-antigen"><span class="toc-section-number">6.1</span> Asymptomatic antigen</a></li>
+<li><a href="#pcr-1"><span class="toc-section-number">6.2</span> PCR</a></li>
+</ul></li>
 </ul>
 </div>
 
-<div id="motivation" class="section level1">
-<h1>Motivation</h1>
+<div id="motivation" class="section level1" number="1">
+<h1 number="1"><span class="header-section-number">1</span> Motivation</h1>
 <p>This document presents some computations regarding the following question:</p>
 <blockquote>
 <p>How much information does a <em>negative</em> test result convey?</p>
@@ -200,8 +216,8 @@ pre code {
 </ol>
 <p>In the second case, there is a 3.33% chance that I am wrong. Put differently, every <strong>30th</strong> friend without a test result is expected to have COVID today.</p>
 <p><em>How much more do I know about my friends’ health thanks to the negative test result?</em></p>
-<div id="summary" class="section level2">
-<h2>Summary</h2>
+<div id="summary" class="section level2" number="1.1">
+<h2 number="1.1"><span class="header-section-number">1.1</span> Summary</h2>
 <ul>
 <li>If your friends do not have any symptoms and all have negative <em>antigen</em> test results, then you know a little bit more: instead of every 30th friend, every <strong>50th</strong> such friend is expected to have COVID today.</li>
 <li>If they all have negative PCR test results, then every <strong>166th</strong> friend is expected to have COVID today.</li>
@@ -209,8 +225,8 @@ pre code {
 </ul>
 <p>Source for this document can be found <a href="https://github.com/hdarjus/covid-test-computations/blob/main/index.Rmd">here</a>.</p>
 </div>
-<div id="important-notice" class="section level2">
-<h2>Important notice</h2>
+<div id="important-notice" class="section level2" number="1.2">
+<h2 number="1.2"><span class="header-section-number">1.2</span> Important notice</h2>
 <p>I am a statistician doing some dirty work here. In other words:</p>
 <ul>
 <li>I am not an expert of COVID tests</li>
@@ -220,19 +236,19 @@ pre code {
 </ul>
 </div>
 </div>
-<div id="terminology" class="section level1">
-<h1>Terminology</h1>
+<div id="terminology" class="section level1" number="2">
+<h1 number="2"><span class="header-section-number">2</span> Terminology</h1>
 <ul>
 <li>Sensitivity: probability of correct result <em>if you are infected</em>, i.e. <span class="math inline">\(P(\text{positive antigen}\mid\text{COVID})\)</span></li>
 <li>Specificity: probability of correct result <em>if you are not infected</em>, i.e. <span class="math inline">\(P(\text{negative antigen}\mid\text{no COVID})\)</span></li>
 </ul>
 <p>Source: <a href="https://en.m.wikipedia.org/wiki/Confusion_matrix">Wikipedia</a></p>
 </div>
-<div id="input" class="section level1">
-<h1>Input</h1>
+<div id="input" class="section level1" number="3">
+<h1 number="3"><span class="header-section-number">3</span> Input</h1>
 <p>I use input from different sources. The sources were not cherry-picked; however, I did not search very thoroughly for various studies. The first study is taken that looks trustworthy.</p>
-<div id="antigen" class="section level4">
-<h4>Antigen</h4>
+<div id="antigen" class="section level2" number="3.1">
+<h2 number="3.1"><span class="header-section-number">3.1</span> Antigen</h2>
 <p><a href="https://www.cdc.gov/mmwr/volumes/69/wr/mm695152a3.htm">This study cited by the CDC.</a> There vastly different values for people with and without COVID symptoms. If you are symptomatic, then</p>
 <ul>
 <li>Sensitivity = 80%</li>
@@ -246,8 +262,8 @@ pre code {
 <p>These numbers are estimates and they have their own error. I ignore that.</p>
 <p>As discussed in the intro, I assume that the true number of active cases in Austria is about 300000 today. That is, in the following I will use <span class="math inline">\(P(\text{COVID})=0.0333\)</span>; that means that a random person is infected with 3.33% probability.</p>
 </div>
-<div id="pcr-naat" class="section level4">
-<h4>PCR (NAAT)</h4>
+<div id="pcr-naat" class="section level2" number="3.2">
+<h2 number="3.2"><span class="header-section-number">3.2</span> PCR (NAAT)</h2>
 <p>I will look into pooled salive-based PCR tests because <a href="https://www.vienna.at/alles-gurgelt-in-wien-pcr-test-box-fuer-zuhause-und-die-arbeit/6887649">that is the method</a> used by “<a href="https://allesgurgelt.at/">Alles gurgelt</a>”—an initiative of the city of Vienna.</p>
 <p>I take the numbers from <a href="https://www.contagionlive.com/view/confirming-accuracy-of-saliva-testing-for-covid-19">this article</a> and the <a href="https://jamanetwork.com/journals/jamainternalmedicine/fullarticle/2775397?guestAccessKey=8058e841-bc18-4398-a251-54087a84297f&amp;utm_source=silverchair&amp;utm_medium=email&amp;utm_campaign=article_alert-jamainternalmedicine&amp;utm_content=olf&amp;utm_term=011521">cited study</a> therein.</p>
 <ul>
@@ -257,31 +273,31 @@ pre code {
 <p>The figures for the pooled nasopharyngeal swab (not saliva-based) are similar.</p>
 </div>
 </div>
-<div id="computation" class="section level1">
-<h1>Computation</h1>
+<div id="computation" class="section level1" number="4">
+<h1 number="4"><span class="header-section-number">4</span> Computation</h1>
 <p>The interesting question is the probability if being negative given a negative result. The figures above give us the reverted probability: e.g. getting a negative result given that you are negative (that is specificity).</p>
 <p><a href="https://statmodeling.stat.columbia.edu/2020/12/15/literally-a-textbook-problem-if-you-get-a-positive-covid-test-how-likely-is-it-that-its-a-false-positive/">One uses Bayes’ theorem</a> to <a href="https://en.wikipedia.org/wiki/Bayes%27_theorem">revert the probability</a>: <span class="math display">\[P(A\mid B)=\frac{P(B\cap A)}{P(B)}\]</span></p>
-<div id="antigen-1" class="section level4">
-<h4>Antigen</h4>
+<div id="antigen-1" class="section level2" number="4.1">
+<h2 number="4.1"><span class="header-section-number">4.1</span> Antigen</h2>
 <p>In our case, we need a more detailed variant of that formula: <span class="math display">\[P(\text{no COVID}\mid \text{negative antigen}) = \frac{P(\text{negative antigen}\mid\text{no COVID})P(\text{no COVID})}{P(\text{negative antigen}\mid\text{no COVID})P(\text{no COVID}) + P(\text{negative antigen}\mid\text{COVID})P(\text{COVID})}\]</span> where <span class="math inline">\(P(\text{negative antigen}\mid\text{COVID})=1-P(\text{positive antigen}\mid\text{COVID})\)</span>.</p>
-<div id="asymptomatic" class="section level5">
-<h5>Asymptomatic</h5>
+<div id="asymptomatic" class="section level3" number="4.1.1">
+<h3 number="4.1.1"><span class="header-section-number">4.1.1</span> Asymptomatic</h3>
 <p>That gives for <strong>asymptomatic</strong> people <span class="math display">\[P(\text{no COVID}\mid \text{negative antigen}) \approx \frac{0.984 \cdot 0.9667}{0.984 \cdot 0.9667 + (1-0.412)\cdot (1-0.9667)}=97.98\%\]</span></p>
 <p>So every 50th negative COVID antigen test gives false inference for asymptomatic people.</p>
 </div>
-<div id="symptomatic" class="section level5">
-<h5>Symptomatic</h5>
+<div id="symptomatic" class="section level3" number="4.1.2">
+<h3 number="4.1.2"><span class="header-section-number">4.1.2</span> Symptomatic</h3>
 <p>And that gives for <strong>symptomatic</strong> people <span class="math display">\[P(\text{no COVID}\mid \text{negative antigen}) \approx \frac{0.989 \cdot 0.9667}{0.989 \cdot 0.9667 + (1-0.8)\cdot (1-0.9667)}=99.31\%\]</span> Only 7 out of 1000 negative test results give false inference for symptomatic people.</p>
 </div>
 </div>
-<div id="pcr" class="section level4">
-<h4>PCR</h4>
+<div id="pcr" class="section level2" number="4.2">
+<h2 number="4.2"><span class="header-section-number">4.2</span> PCR</h2>
 <p>Very similar computation leads to the following result: <span class="math display">\[P(\text{no COVID}\mid \text{negative PCR}) \approx \frac{0.992 \cdot 0.9667}{0.992 \cdot 0.9667 + (1-0.832)\cdot (1-0.9667)}=99.42\%\]</span></p>
 <p>Only 6 out of 1000 test results give false inference in case of a setup similar to <a href="https://allesgurgelt.at/">Alles gurgelt</a>. That is ca. every 166th negative PCR test results in wrong inference.</p>
 </div>
 </div>
-<div id="discussion" class="section level1">
-<h1>Discussion</h1>
+<div id="discussion" class="section level1" number="5">
+<h1 number="5"><span class="header-section-number">5</span> Discussion</h1>
 <p>If it is antigen testing, then it is important to combine the test result with observing symptoms. A negative antigen test result for an asymptomatic person makes you only a bit more certain (less than twice as certain) about that person being healthy.</p>
 <blockquote>
 <p>“Still, that 97.98% is not <em>soooo</em> bad.”</p>
@@ -290,15 +306,15 @@ pre code {
 <p>That would be the main message of the document: the interesting comparison is between the base rate (96.67%) and the rate given a negative test (97.98% for asymptomatic). The 41.2% from above is not the final answer you are interested in because what you know is whether your friend has a negative test result; you do not know whether your friend has COVID. It is the 97.98% that tells you the probability for your friend having COVID given that you know that she/he has a negative antigen test result.</p>
 <p>Trust PCR tests more; they are more than three times as good as antigen tests and more than five times as good as the base rate guess. Do Alles gurgelt.</p>
 </div>
-<div id="what-about-repeated-tests" class="section level1">
-<h1>What about repeated tests??</h1>
+<div id="what-about-repeated-tests" class="section level1" number="6">
+<h1 number="6"><span class="header-section-number">6</span> What about repeated tests??</h1>
 <p>Again, Bayes’ theorem can be applied to answer the interesting question: how much more do I know about my friend if they have two negative tests compared to the base rate/one negative test result?</p>
-<div id="asymptomatic-antigen" class="section level4">
-<h4>Asymptomatic antigen</h4>
+<div id="asymptomatic-antigen" class="section level2" number="6.1">
+<h2 number="6.1"><span class="header-section-number">6.1</span> Asymptomatic antigen</h2>
 <p><span class="math display">\[P(\text{no COVID}\mid \text{2 negative antigens}) \approx \frac{0.984^2 \cdot 0.9667}{0.984^2 \cdot 0.9667 + (1-0.412)^2\cdot (1-0.9667)}=98.78\%\]</span> That is every 82nd asymptomatic person is expected to have COVID when they have two negative antigen test results. Here, I assume that test results can be faulty independently; I consider it to be a realistic assumption.</p>
 </div>
-<div id="pcr-1" class="section level4">
-<h4>PCR</h4>
+<div id="pcr-1" class="section level2" number="6.2">
+<h2 number="6.2"><span class="header-section-number">6.2</span> PCR</h2>
 <p>The same idea, Bayes’ rule: <span class="math display">\[P(\text{no COVID}\mid \text{2 negative PCRs}) \approx \frac{0.992^2 \cdot 0.9667}{0.992^2 \cdot 0.9667 + (1-0.832)^2\cdot (1-0.9667)}=99.901\%\]</span> Every 1000th person with two negative PCR test results is expected to have COVID.</p>
 </div>
 </div>
