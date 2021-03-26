@@ -1,6 +1,9 @@
 ---
 title: "COVID Test Informativeness"
-output: html_document
+output:
+  html_document:
+    toc: true
+    theme: united
 author: Darjus Hosszejni
 date: March 26, 2021
 ---
@@ -15,7 +18,7 @@ A bit more precisely:
 Everyone can quickly look up the official numbers for their given region.
 I am based in Vienna, so I check the [Austrian authorities' numbers](https://covid19-dashboard.ages.at/); today, there are 49113 active cases.
 It is said that the true number of active cases is 5-10 times larger than the measured one, so let us say 300 thousand in Austria.
-Austria has a population of about 9 million, so if I walk around the streets and think that everyone is COVID-free then I am wrong about $\frac{300000}{9000000} = `r covid <- round(3/90, 4); nocovid <- 1 - covid; covid*100`\%$.
+Austria has a population of about 9 million, so if I walk around the streets and think that everyone is COVID-free then I am wrong about $\frac{300000}{9000000} = `r covid <- round(3/90, 4); nocovid <- 1 - covid; covid*100`\%$ of cases.
 
 Now, let us say that I meet with a friend.
 Naturally, I assume that the friend is COVID-free.
@@ -24,10 +27,10 @@ I am interested in comparing two scenarios:
 1. The friend has a fresh negative test result.
 1. The friend did not get tested.
 
-In the second case there is a `r covid*100`% chance that I am wrong.
+In the second case, there is a `r covid*100`% chance that I am wrong.
 Put differently, every **30th** friend without a test result is expected to have COVID today.
 
-*How much more do I know about my friends' health with the negative test result?*
+*How much more do I know about my friends' health thanks to the negative test result?*
 
 ## Summary
 
@@ -59,7 +62,7 @@ I use input from different sources.
 The sources were not cherry-picked; however, I did not search very thoroughly for various studies.
 The first study is taken that looks trustworthy.
 
-## Antigen
+#### Antigen
 
 [This study cited by the CDC.](https://www.cdc.gov/mmwr/volumes/69/wr/mm695152a3.htm)
 There vastly different values for people with and without COVID symptoms.
@@ -86,7 +89,7 @@ I ignore that.
 As discussed in the intro, I assume that the true number of active cases in Austria is about 300000 today.
 That is, in the following I will use $P(\text{COVID})=`r covid`$; that means that a random person is infected with `r covid*100`% probability.
 
-## PCR (NAAT)
+#### PCR (NAAT)
 
 I will look into pooled salive-based PCR tests because [that is the method](https://www.vienna.at/alles-gurgelt-in-wien-pcr-test-box-fuer-zuhause-und-die-arbeit/6887649) used by "[Alles gurgelt](https://allesgurgelt.at/)"---an initiative of the city of Vienna.
 
@@ -109,26 +112,26 @@ The figures above give us the reverted probability: e.g. getting a negative resu
 
 [One uses Bayes' theorem](https://statmodeling.stat.columbia.edu/2020/12/15/literally-a-textbook-problem-if-you-get-a-positive-covid-test-how-likely-is-it-that-its-a-false-positive/) to [revert the probability](https://en.wikipedia.org/wiki/Bayes%27_theorem):
 $$P(A\mid B)=\frac{P(B\cap A)}{P(B)}$$
-### Antigen
+#### Antigen
 
 In our case, we need a more detailed variant of that formula:
 $$P(\text{no COVID}\mid \text{negative antigen}) = \frac{P(\text{negative antigen}\mid\text{no COVID})P(\text{no COVID})}{P(\text{negative antigen}\mid\text{no COVID})P(\text{no COVID}) + P(\text{negative antigen}\mid\text{COVID})P(\text{COVID})}$$
 where $P(\text{negative antigen}\mid\text{COVID})=1-P(\text{positive antigen}\mid\text{COVID})$.
 
-#### Asymptomatic
+##### Asymptomatic
 
 That gives for **asymptomatic** people
 $$P(\text{no COVID}\mid \text{negative antigen}) \approx \frac{`r aspec` \cdot `r nocovid`}{`r aspec` \cdot `r nocovid` + (1-`r asens`)\cdot (1-`r nocovid`)}=`r round((aspec * nocovid) / (aspec * nocovid + (1-asens) * (1-nocovid)) * 100, 2)`\%$$
 
 So every 50th negative COVID antigen test gives false inference for asymptomatic people.
 
-#### Symptomatic
+##### Symptomatic
 
 And that gives for **symptomatic** people
 $$P(\text{no COVID}\mid \text{negative antigen}) \approx \frac{`r sspec` \cdot `r nocovid`}{`r sspec` \cdot `r nocovid` + (1-`r ssens`)\cdot (1-`r nocovid`)}=`r round((sspec * nocovid) / (sspec * nocovid + (1-ssens) * (1-nocovid)) * 100, 2)`\%$$
 Only 7 out of 1000 negative test results give false inference for symptomatic people.
 
-### PCR
+#### PCR
 
 Very similar computation leads to the following result:
 $$P(\text{no COVID}\mid \text{negative PCR}) \approx \frac{`r pspec` \cdot `r nocovid`}{`r pspec` \cdot `r nocovid` + (1-`r psens`)\cdot (1-`r nocovid`)}=`r round((pspec * nocovid) / (pspec * nocovid + (1-psens) * (1-nocovid)) * 100, 2)`\%$$
@@ -157,13 +160,13 @@ Do Alles gurgelt.
 
 Again, Bayes' theorem can be applied to answer the interesting question: how much more do I know about my friend if they have two negative tests compared to the base rate/one negative test result?
 
-## Asymptomatic antigen
+#### Asymptomatic antigen
 
 $$P(\text{no COVID}\mid \text{2 negative antigens}) \approx \frac{`r aspec`^2 \cdot `r nocovid`}{`r aspec`^2 \cdot `r nocovid` + (1-`r asens`)^2\cdot (1-`r nocovid`)}=`r round((aspec^2 * nocovid) / (aspec^2 * nocovid + (1-asens)^2 * (1-nocovid)) * 100, 2)`\%$$
 That is every 82nd asymptomatic person is expected to have COVID when they have two negative antigen test results.
 Here, I assume that test results can be faulty independently; I consider it to be a realistic assumption.
 
-## PCR
+#### PCR
 
 The same idea, Bayes' rule:
 $$P(\text{no COVID}\mid \text{2 negative PCRs}) \approx \frac{`r pspec`^2 \cdot `r nocovid`}{`r pspec`^2 \cdot `r nocovid` + (1-`r psens`)^2\cdot (1-`r nocovid`)}=`r round((pspec^2 * nocovid) / (pspec^2 * nocovid + (1-psens)^2 * (1-nocovid)) * 100, 3)`\%$$
