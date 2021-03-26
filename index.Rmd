@@ -114,6 +114,7 @@ The figures above give us the reverted probability: e.g. getting a negative resu
 
 [One uses Bayes' theorem](https://statmodeling.stat.columbia.edu/2020/12/15/literally-a-textbook-problem-if-you-get-a-positive-covid-test-how-likely-is-it-that-its-a-false-positive/) to [revert the probability](https://en.wikipedia.org/wiki/Bayes%27_theorem):
 $$P(A\mid B)=\frac{P(B\cap A)}{P(B)}$$
+
 #### Antigen
 
 In our case, we need a more detailed variant of that formula:

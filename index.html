@@ -260,7 +260,9 @@ pre code {
 <div id="computation" class="section level1">
 <h1>Computation</h1>
 <p>The interesting question is the probability if being negative given a negative result. The figures above give us the reverted probability: e.g. getting a negative result given that you are negative (that is specificity).</p>
-<p><a href="https://statmodeling.stat.columbia.edu/2020/12/15/literally-a-textbook-problem-if-you-get-a-positive-covid-test-how-likely-is-it-that-its-a-false-positive/">One uses Bayes’ theorem</a> to <a href="https://en.wikipedia.org/wiki/Bayes%27_theorem">revert the probability</a>: <span class="math display">\[P(A\mid B)=\frac{P(B\cap A)}{P(B)}\]</span> #### Antigen</p>
+<p><a href="https://statmodeling.stat.columbia.edu/2020/12/15/literally-a-textbook-problem-if-you-get-a-positive-covid-test-how-likely-is-it-that-its-a-false-positive/">One uses Bayes’ theorem</a> to <a href="https://en.wikipedia.org/wiki/Bayes%27_theorem">revert the probability</a>: <span class="math display">\[P(A\mid B)=\frac{P(B\cap A)}{P(B)}\]</span></p>
+<div id="antigen-1" class="section level4">
+<h4>Antigen</h4>
 <p>In our case, we need a more detailed variant of that formula: <span class="math display">\[P(\text{no COVID}\mid \text{negative antigen}) = \frac{P(\text{negative antigen}\mid\text{no COVID})P(\text{no COVID})}{P(\text{negative antigen}\mid\text{no COVID})P(\text{no COVID}) + P(\text{negative antigen}\mid\text{COVID})P(\text{COVID})}\]</span> where <span class="math inline">\(P(\text{negative antigen}\mid\text{COVID})=1-P(\text{positive antigen}\mid\text{COVID})\)</span>.</p>
 <div id="asymptomatic" class="section level5">
 <h5>Asymptomatic</h5>
@@ -270,6 +272,7 @@ pre code {
 <div id="symptomatic" class="section level5">
 <h5>Symptomatic</h5>
 <p>And that gives for <strong>symptomatic</strong> people <span class="math display">\[P(\text{no COVID}\mid \text{negative antigen}) \approx \frac{0.989 \cdot 0.9667}{0.989 \cdot 0.9667 + (1-0.8)\cdot (1-0.9667)}=99.31\%\]</span> Only 7 out of 1000 negative test results give false inference for symptomatic people.</p>
+</div>
 </div>
 <div id="pcr" class="section level4">
 <h4>PCR</h4>
